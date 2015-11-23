@@ -7,9 +7,21 @@ import java.util.List;
  */
 
 public class JsonFixturesResponse {
+
+
+    private List<RootLinks> _links;
     private List<Fixture> fixtures;
     private int count;
 
+
+    public List<RootLinks> get_links() {
+        return _links;
+    }
+
+    public void set_links(List<RootLinks> _links) {
+        this._links = _links;
+    }
+    
     public int getCount() {
         return count;
     }
