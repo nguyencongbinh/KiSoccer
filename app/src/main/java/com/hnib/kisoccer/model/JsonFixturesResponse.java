@@ -21,7 +21,7 @@ public class JsonFixturesResponse {
     public void set_links(List<RootLinks> _links) {
         this._links = _links;
     }
-    
+
     public int getCount() {
         return count;
     }

@@ -1,33 +1,29 @@
 package com.hnib.kisoccer.activity;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.google.gson.Gson;
 import com.hnib.kisoccer.R;
-import com.hnib.kisoccer.Utils.Constants;
-import com.hnib.kisoccer.adapter.RecycleViewAdapter;
-import com.hnib.kisoccer.model.Fixture;
-import com.hnib.kisoccer.model.JsonFixturesResponse;
-import com.hnib.kisoccer.network.VolleySingleton;
+import com.hnib.kisoccer.fragment.NextFixturesFragment;
+import com.hnib.kisoccer.fragment.ResultFragment;
+import com.hnib.kisoccer.fragment.TodayFixturesFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView recycleView;
-    private List<Fixture> fixtures = new ArrayList<>();
-    private RecycleViewAdapter recycleViewAdapter;
+    private Toolbar toolbar;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -38,53 +34,55 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        recycleView = (RecyclerView) findViewById(R.id.recycleView);
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        recycleView.setLayoutManager(llm);
-        recycleViewAdapter = new RecycleViewAdapter();
-        recycleViewAdapter.setFixtures(fixtures);
-        recycleView.setAdapter(recycleViewAdapter);
-        sendRequestToFootballData();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
+
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
 
 
     }
 
-    private void sendRequestToFootballData() {
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new ResultFragment(), "RESULTS");
+        adapter.addFragment(new TodayFixturesFragment(), "TODAY MATCHES");
+        adapter.addFragment(new NextFixturesFragment(), "NEXT MATCHES");
+        viewPager.setAdapter(adapter);
+    }
 
-        String url = "http://httpbin.org/html";
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
 
-// Request a string response
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, Constants.url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
 
-                        Gson gson = new Gson();
-                        JsonFixturesResponse fixturesResponse = gson.fromJson(response, JsonFixturesResponse.class);
-                        fixtures = fixturesResponse.getFixtures();
-                        recycleViewAdapter.setFixtures(fixtures);
-                        recycleViewAdapter.notifyDataSetChanged();
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
 
-                        // Result handling
-                        System.out.println("binhnc " + response);
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
 
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
 
-                // Error handling
-                System.out.println("Something went wrong!");
-                error.printStackTrace();
-
-            }
-        });
-        VolleySingleton.getInstance().getRequestQueue().add(stringRequest);
-
-
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
     }
 
 
