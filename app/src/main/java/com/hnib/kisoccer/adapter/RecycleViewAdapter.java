@@ -4,6 +4,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hnib.kisoccer.R;
@@ -14,22 +16,29 @@ import java.util.List;
 /**
  * Created by caucukien on 23/11/2015.
  */
-public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.FixtureViewHolder>{
+public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.FixtureViewHolder> {
 
     private List<Fixture> fixtures;
+
     public static class FixtureViewHolder extends RecyclerView.ViewHolder {
-       TextView tvHomeTeamName;
-        TextView tvAwayTeamName;
+        Button btnTime;
+        TextView tvHomeName, tvAwayName;
+        ImageView imgHome, imgAway;
+        TextView tvScore;
 
 
         FixtureViewHolder(View itemView) {
             super(itemView);
-            tvHomeTeamName = (TextView)itemView.findViewById(R.id.tvHomeTeamName);
-            tvAwayTeamName = (TextView)itemView.findViewById(R.id.tvAwayTeamName);
+            tvHomeName = (TextView) itemView.findViewById(R.id.tv_home_name);
+            tvAwayName = (TextView) itemView.findViewById(R.id.tv_away_name);
+            imgHome = (ImageView) itemView.findViewById(R.id.img_home);
+            imgAway = (ImageView) itemView.findViewById(R.id.img_away);
+            tvScore = (TextView) itemView.findViewById(R.id.tv_score);
         }
     }
 
-    public void setFixtures(List fixtures){
+    public void setFixtures(List fixtures) {
+
         this.fixtures = fixtures;
     }
 
@@ -42,8 +51,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
     @Override
     public void onBindViewHolder(FixtureViewHolder holder, int position) {
-        holder.tvHomeTeamName.setText(fixtures.get(position).getHomeTeamName());
-        holder.tvAwayTeamName.setText(fixtures.get(position).getAwayTeamName());
+       // holder.tvHomeTeamName.setText(fixtures.get(position).getHomeTeamName());
+      //  holder.tvAwayTeamName.setText(fixtures.get(position).getAwayTeamName());
     }
 
 
@@ -54,7 +63,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
     @Override
     public int getItemCount() {
-        return fixtures.size();
+        return 10;
+        //return fixtures.size();
     }
 
 }
