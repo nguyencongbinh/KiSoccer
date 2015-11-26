@@ -9,17 +9,25 @@ import java.util.List;
 public class JsonFixturesResponse {
 
 
-    private List<RootLinks> _links;
-    private List<Fixture> fixtures;
+    private String timeFrameStart;
+    private String timeFrameEnd;
     private int count;
+    private List<Fixture> fixtures;
 
-
-    public List<RootLinks> get_links() {
-        return _links;
+    public String getTimeFrameStart() {
+        return timeFrameStart;
     }
 
-    public void set_links(List<RootLinks> _links) {
-        this._links = _links;
+    public void setTimeFrameStart(String timeFrameStart) {
+        this.timeFrameStart = timeFrameStart;
+    }
+
+    public String getTimeFrameEnd() {
+        return timeFrameEnd;
+    }
+
+    public void setTimeFrameEnd(String timeFrameEnd) {
+        this.timeFrameEnd = timeFrameEnd;
     }
 
     public int getCount() {
