@@ -5,12 +5,18 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.hnib.kisoccer.model.Fixture;
+
+import java.util.List;
+
 /**
  * Created by caucukien on 24/11/2015.
  */
 public class KiSoccerApplication extends Application {
 
     private static KiSoccerApplication instance;
+    private List<Fixture> fixtures;
+
 
 
     public static KiSoccerApplication getInstance() {
@@ -28,6 +34,14 @@ public class KiSoccerApplication extends Application {
         super.onCreate();
         instance = this;
 
+    }
+
+    public List<Fixture> getFixtures() {
+        return fixtures;
+    }
+
+    public void setFixtures(List<Fixture> fixtures) {
+        this.fixtures = fixtures;
     }
 
     public static void saveToPreferences(Context context, String preferenceName, String preferenceValue) {
