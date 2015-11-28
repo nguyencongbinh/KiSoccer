@@ -15,7 +15,6 @@ import java.util.List;
 public class KiSoccerApplication extends Application {
 
     private static KiSoccerApplication instance;
-    private List<Fixture> fixtures;
 
 
 
@@ -36,13 +35,7 @@ public class KiSoccerApplication extends Application {
 
     }
 
-    public List<Fixture> getFixtures() {
-        return fixtures;
-    }
 
-    public void setFixtures(List<Fixture> fixtures) {
-        this.fixtures = fixtures;
-    }
 
     public static void saveToPreferences(Context context, String preferenceName, String preferenceValue) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());

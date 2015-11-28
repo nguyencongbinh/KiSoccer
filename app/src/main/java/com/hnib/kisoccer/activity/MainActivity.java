@@ -13,7 +13,7 @@ import android.view.MenuItem;
 
 import com.hnib.kisoccer.R;
 import com.hnib.kisoccer.fragment.NextFixturesFragment;
-import com.hnib.kisoccer.fragment.ResultFragment;
+import com.hnib.kisoccer.fragment.ResultFixturesFragment;
 import com.hnib.kisoccer.fragment.TodayFixturesFragment;
 
 import java.util.ArrayList;
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new ResultFragment(), "RESULTS");
+        adapter.addFragment(new ResultFixturesFragment(), "RESULTS");
         adapter.addFragment(new TodayFixturesFragment(), "TODAY MATCHES");
         adapter.addFragment(new NextFixturesFragment(), "NEXT MATCHES");
         viewPager.setAdapter(adapter);

@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.hnib.kisoccer.Utils.Constants;
 import com.hnib.kisoccer.activity.KiSoccerApplication;
 import com.hnib.kisoccer.model.Fixture;
+import com.hnib.kisoccer.model.FixtureSingleton;
 import com.hnib.kisoccer.model.JsonFixturesResponse;
 
 import org.json.JSONObject;
@@ -51,7 +52,7 @@ public class VolleySingleton {
         return requestQueue;
     }
 
-    public void callJsonStringRequest(String url){
+    public void callFixtureJsonStringRequest(String url){
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url , new Response.Listener<String>() {
             @Override
@@ -59,7 +60,7 @@ public class VolleySingleton {
                 Gson gson = new Gson();
                 JsonFixturesResponse jsonFixturesResponse = gson.fromJson(response, JsonFixturesResponse.class);
                 List<Fixture> fixtures = jsonFixturesResponse.getFixtures();
-                KiSoccerApplication.getInstance().setFixtures(fixtures);
+                FixtureSingleton.getInstance().setFixtures(fixtures);
                 onNetworkResponse.onResponseSucces();
             }
         }, new Response.ErrorListener() {

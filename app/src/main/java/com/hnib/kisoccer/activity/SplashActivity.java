@@ -43,7 +43,7 @@ public class SplashActivity extends Activity implements VolleySingleton.OnNetwor
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
 //        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
-        VolleySingleton.getInstance().callJsonStringRequest(Constants.url);
+        VolleySingleton.getInstance().callFixtureJsonStringRequest(Constants.url);
         VolleySingleton.getInstance().setOnNetWorkResponse(this);
     }
 
