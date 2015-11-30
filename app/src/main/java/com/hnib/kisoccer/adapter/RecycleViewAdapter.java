@@ -14,6 +14,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.hnib.kisoccer.R;
+import com.hnib.kisoccer.Utils.CommonUtils;
 import com.hnib.kisoccer.Utils.Constants;
 import com.hnib.kisoccer.model.Fixture;
 import com.hnib.kisoccer.model.Result;
@@ -76,7 +77,10 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
         Result result = fixture.getResult();
         if (fixture.getStatus().equalsIgnoreCase(Constants.Key.KEY_TIMED) == true ) {
-            holder.tvTime.setText(Constants.Key.KEY_TIMED);
+            String time = CommonUtils.getTimeFromDateFixture(fixture.getDate());
+            if(time!=null){
+                holder.tvTime.setText(time);
+            }
             holder.tvScore.setText(Constants.VS);
         }else{
             holder.tvScore.setText(result.getGoalsHomeTeam() + "-" + result.getGoalsAwayTeam());

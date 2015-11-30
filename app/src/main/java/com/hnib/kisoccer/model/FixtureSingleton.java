@@ -29,6 +29,8 @@ public class FixtureSingleton {
     public void setFixtures(List<Fixture> fixtures) {
         this.fixtures = fixtures;
     }
+
+
     public List<Fixture> getResultFixtures(){
         List<Fixture> resultFixtures = new ArrayList<>();
         for(Fixture fixture : fixtures){
@@ -40,12 +42,12 @@ public class FixtureSingleton {
     }
 
     public List<Fixture> getTodaytFixtures(){
-        List<Fixture> resultFixtures = new ArrayList<>();
+        List<Fixture> todayFixtures = new ArrayList<>();
         for(Fixture fixture : fixtures){
             if(fixture.getStatus().equals(Constants.Key.KEY_FINISHED)==false){
-                resultFixtures.add(fixture );
+                todayFixtures.add(fixture );
             }
         }
-        return resultFixtures;
+        return todayFixtures;
     }
 }

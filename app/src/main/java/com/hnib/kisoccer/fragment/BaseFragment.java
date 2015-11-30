@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.hnib.kisoccer.R;
 import com.hnib.kisoccer.Utils.Constants;
 import com.hnib.kisoccer.adapter.RecycleViewAdapter;
+import com.hnib.kisoccer.adapter.SimpleSectionedRecyclerViewAdapter;
 import com.hnib.kisoccer.model.Fixture;
 import com.hnib.kisoccer.model.FixtureSingleton;
 import com.hnib.kisoccer.network.VolleySingleton;
@@ -44,21 +45,13 @@ public class BaseFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("TAG", "OnCreate");
-
-        fixtures = FixtureSingleton.getInstance().getFixtures();
 
     }
     public void setFixtures(List<Fixture> fixtures){
+
         this.fixtures = fixtures;
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        Log.d("TAG", "onSaveInstanceState");
-        super.onSaveInstanceState(outState);
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,15 +69,28 @@ public class BaseFragment extends Fragment {
         recycleViewAdapter.setFixtures(fixtures);
         recyclerView.setAdapter(recycleViewAdapter);
 
+        List<SimpleSectionedRecyclerViewAdapter.Section> sections =
+                new ArrayList<SimpleSectionedRecyclerViewAdapter.Section>();
+
+        //Sections
+        sections.add(new SimpleSectionedRecyclerViewAdapter.Section(0,"Section 1"));
+        sections.add(new SimpleSectionedRecyclerViewAdapter.Section(5,"Section 2"));
+        sections.add(new SimpleSectionedRecyclerViewAdapter.Section(12,"Section 3"));
+        sections.add(new SimpleSectionedRecyclerViewAdapter.Section(14,"Section 4"));
+        sections.add(new SimpleSectionedRecyclerViewAdapter.Section(20,"Section 5"));
+
+        //Add your adapter to the sectionAdapter
+        SimpleSectionedRecyclerViewAdapter.Section[] dummy = new SimpleSectionedRecyclerViewAdapter.Section[sections.size()];
+        SimpleSectionedRecyclerViewAdapter mSectionedAdapter = new
+                SimpleSectionedRecyclerViewAdapter(getActivity(),R.layout.section, R.id.section_text,recycleViewAdapter);
+        mSectionedAdapter.setSections(sections.toArray(dummy));
+
+        //Apply this adapter to the RecyclerView
+        recyclerView.setAdapter(mSectionedAdapter);
+
         return view;
     }
 
-    @Override
-    public void onResume() {
-        Log.d("TAG", "onResume");
-        super.onResume();
-
-    }
 
     public SwipeRefreshLayout getSwipeRefreshLayout() {
         return swipeRefreshLayout;
